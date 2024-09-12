@@ -12,7 +12,9 @@ def match_pattern(input_line, pattern):
     #create switch statments
     match pattern:
         case '\d':
-            return True 
+            for char in pattern:
+                if char >= 0 and char <= 9:
+                    return True
     return False
         
 
@@ -27,7 +29,7 @@ def main():
 
     # # You can use print statements as follows for debugging, they'll be visible when running tests.
     # print("Logs from your program will appear here!")
-
+    print(f"input line is: {input_line}")
     # Uncomment this block to pass the first stage
     if match_pattern(input_line, pattern):
         exit(0)
