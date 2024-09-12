@@ -13,7 +13,7 @@ def match_pattern(input_line, pattern):
     if pattern[0] != "\'":
         return False
     match pattern:
-        case '\d':
+        case "\d":
             return any(char.isdigit() for char in input_line)
     return False
         
