@@ -12,9 +12,7 @@ def match_pattern(input_line, pattern):
     #create switch statments
     match pattern:
         case '\d':
-            for char in pattern:
-                if char >= 0 and char <= 9:
-                    return True 
+            return True 
     return False
         
 
