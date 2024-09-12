@@ -10,6 +10,8 @@ def match_pattern(input_line, pattern):
     # else:
     #     raise RuntimeError(f"Unhandled pattern: {pattern}")
     #create switch statments
+    if pattern[0] != "\'":
+        return False
     match pattern:
         case '\d':
             return any(char.isdigit() for char in input_line)
