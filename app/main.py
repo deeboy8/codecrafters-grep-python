@@ -5,10 +5,18 @@ import sys
 
 
 def match_pattern(input_line, pattern):
-    if len(pattern) == 1:
-        return pattern in input_line
-    else:
-        raise RuntimeError(f"Unhandled pattern: {pattern}")
+    # if len(pattern) == 1:
+    #     return pattern in input_line
+    # else:
+    #     raise RuntimeError(f"Unhandled pattern: {pattern}")
+    #create switch statments
+    match pattern:
+        case '\d':
+            for char in pattern:
+                if char >= 0 and char <= 9:
+                    return True 
+    return False
+        
 
 
 def main():
@@ -27,7 +35,6 @@ def main():
         exit(0)
     else:
         exit(1)
-
 
 if __name__ == "__main__":
     main()
