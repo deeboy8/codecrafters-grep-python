@@ -9,13 +9,15 @@ def match_pattern(input_line, pattern):
         return pattern in input_line
     elif pattern == "\\d":
         return any(char.isdigit() for char in input_line)
+    elif pattern == "\\w":
+        return any(char.alphanumeric() for char in input_line)
     else:
         raise RuntimeError(f"Unhandled pattern: {pattern}")
 
 def main():
     pattern = sys.argv[2]
     input_line = sys.stdin.read()
-    print(f"input line is: {input_line}")   
+
     if sys.argv[1] != "-E":
         print("Expected first argument to be '-E'")
         exit(1)
