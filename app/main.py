@@ -13,9 +13,9 @@ def match_pattern(input_line, pattern):
 
     def match_character_class(input_line, char_class):
         for char in input_line:
-            if char_class == '\\d' and is_digit(char):
+            if char_class == '\\d' and is_digit():
                 return True
-            elif char_class == '\\w' and is_alnum(char):
+            elif char_class == '\\w' and is_alnum():
                 return True
         return False
 
