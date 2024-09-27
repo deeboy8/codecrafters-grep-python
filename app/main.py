@@ -5,19 +5,55 @@ import sys
 
 
 def match_pattern(input_line, pattern):
-    if len(pattern) == 1:
-        return pattern in input_line
-    elif pattern == '\\d':
-        return any(char.isdigit() for char in input_line)
-    elif pattern == "\\w":
-        return any(char.isalnum() for char in input_line)
-    elif pattern[0:2] == '[^' and pattern[-1] == ']':
-        return not any(char in pattern[1:-1] for char in input_line)
-    elif pattern[0] == '[' and pattern[-1] == ']':
-        return any(char in pattern[1:-1] for char in input_line)
-    else:
-        raise RuntimeError(f"Unhandled pattern: {pattern}")
+    def is_digit(char):
+        return char.isdigit(char)
+    
+    def is_alnum(char):
+        return char.isalnum(char)
 
+    def match_character_class(input_line, char_class):
+        for char in input_line:
+            if char_class == '\\d' and is_digit(char):
+                return True
+            elif char_class == '\\w' and is_alnum(char):
+                return True
+        return False
+
+    def is_negative_character_class(pattern):
+        return any(char in pattern[1:-1] for char in input_line)
+
+    def is_character_class(pattern):
+        return any(char in pattern[1:-1] for char in input_line) #TODO: change splicing to [:-1] to understand why 1:-1 works when it's not the full char set
+
+    i = 0
+    while i < len(pattern):
+        char = pattern[i]
+        
+        if char == '\\':
+            next_char = pattern[i + 1]
+            if next_char == 'd' or next_char == 'w':
+                if not match_character_class(input_line, next_char):
+                    return False
+        
+        elif char == '[':
+            closing_bracket = pattern.find(']', i)
+            if closing_bracket == -1:
+                raise RuntimeError(f"Unmatched '[' in pattern: {pattern}")
+            
+            char_set = pattern[i + 1:closing_bracket]
+            if char_set[0] == '^':
+                if not is_negative_character_class(char_set):
+                    return False 
+            else:
+                if not is_character_class(char_set):
+                    return False
+        else:
+            raise RuntimeError(f"Unhandled pattern: {pattern}")
+
+        i += 1
+
+    return True  
+      
 def main():
     pattern = sys.argv[2]
     # input_line = sys.stdin.read()
