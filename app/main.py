@@ -6,10 +6,10 @@ import sys
 
 def match_pattern(input_line, pattern):
     def is_digit(char):
-        return char.isdigit(char)
+        return char.isdigit()
     
     def is_alnum(char):
-        return char.isalnum(char)
+        return char.isalnum()
 
     def match_character_class(input_line, char_class):
         for char in input_line:
