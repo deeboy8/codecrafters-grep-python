@@ -19,40 +19,43 @@ def match_pattern(input_line, pattern):
                 return True
         return False
 
-    def is_negative_character_class(pattern):
+    def is_negative_character_class(input_line, pattern):
         return any(char in pattern[1:-1] for char in input_line)
 
-    def is_character_class(pattern):
+    def is_character_class(input_line, pattern):
         return any(char in pattern[1:-1] for char in input_line) #TODO: change splicing to [:-1] to understand why 1:-1 works when it's not the full char set
 
-    i = 0
-    while i < len(pattern):
-        char = pattern[i]
-        
-        if char == '\\':
+    i, j = 0, 0
+    pattern_matched = True #boolean flag to check if the pattern is matched
+    while i < len(input_line):
+        #code block wil solely focus on alphnumeric characters
+        #such as  a-z, A-Z, 0-9, etc., " apples"
+        if is_alnum(pattern[i]):
+            continue
+        #code block focuses on digit and alnum character classes   
+        elif pattern[i] == '\\':
             next_char = pattern[i + 1]
             if next_char == 'd' or next_char == 'w':
-                if not match_character_class(input_line, next_char):
-                    return False
-        
-        elif char == '[':
+                if match_character_class(input_line, next_char):
+                    continue
+        #code block will focus on character group identification
+        elif pattern[i] == '[':
             closing_bracket = pattern.find(']', i)
             if closing_bracket == -1:
                 raise RuntimeError(f"Unmatched '[' in pattern: {pattern}")
             
             char_set = pattern[i + 1:closing_bracket]
             if char_set[0] == '^':
-                if not is_negative_character_class(char_set):
-                    return False 
+                if not is_negative_character_class(input_line, char_set):
+                    pattern_matched = False
             else:
-                if not is_character_class(char_set):
-                    return False
+                if not is_character_class(input_line, char_set):
+                    pattern_matched = False
         else:
             raise RuntimeError(f"Unhandled pattern: {pattern}")
-
         i += 1
 
-    return True  
+    return pattern_matched  
       
 def main():
     pattern = sys.argv[2]
