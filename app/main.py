@@ -23,9 +23,9 @@ def match_pattern(input_line, pattern):
         return any(char in pattern[1:-1] for char in input_line)
 
     def is_character_class(input_line, pattern):
-        return any(char in pattern[1:-1] for char in input_line) #TODO: change splicing to [:-1] to understand why 1:-1 works when it's not the full char set
+        return any(char in pattern[1:-1] for char in input_line) 
 
-    i, j = 0, 0
+    i = 0
     pattern_matched = True #boolean flag to check if the pattern is matched
     while i < len(input_line):
         #code block wil solely focus on alphnumeric characters
@@ -37,6 +37,7 @@ def match_pattern(input_line, pattern):
             next_char = pattern[i + 1]
             if next_char == 'd' or next_char == 'w':
                 if match_character_class(input_line, next_char):
+                    i += 1
                     continue
         #code block will focus on character group identification
         elif pattern[i] == '[':
