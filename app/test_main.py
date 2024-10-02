@@ -11,20 +11,20 @@ def test_digit():
     test_fail = match_pattern(input_line_fail, pattern)
     
     assert(test_pass)
-    assert (not test_fail)
+    assert(test_fail)
 
-# def test_negative_character_classes():
-#     pattern = "[^abc]"
-#     input_line = 'def'
+def test_negative_character_classes():
+    pattern = "[^abc]"
+    input_line = 'def'
 
-#     test_pass = match_pattern(input_line, pattern)
+    test_pass = match_pattern(input_line, pattern)
 
-#     assert(test_pass)
+    assert(test_pass)
 
-# def test_negative_character_class():
-#     pattern = "[^abc]"
-#     input_line = 'abc'
+def test_negative_character_class():
+    pattern = "[^abc]"
+    input_line = 'abc'
 
-#     test_pass = match_pattern(input_line, pattern)
+    test_pass = match_pattern(input_line, pattern)
 
-#     assert(not test_pass)
+    assert(not test_pass)
