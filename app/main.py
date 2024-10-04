@@ -61,10 +61,8 @@ def main():
     # print(f"input line is: {input_line}")
     # Uncomment this block to pass the first stage
     if match_pattern(input_line, pattern):
-        print('success')
         exit(0)
     else:
-        print('failure')
         exit(1)
 
 if __name__ == "__main__":
