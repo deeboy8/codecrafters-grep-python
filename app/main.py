@@ -47,24 +47,24 @@ def match_pattern(input_line, pattern):
     return i == len(pattern)
       
 def main():
-    # pattern = sys.argv[
-    pattern = '\\d apples'
-    # input_line = sys.stdin.read()
-    input_line = "sally has 1 oranges" #input("Enter input_line: ")
+    pattern = sys.argv[2]
+    # pattern = '\\d apples'
+    input_line = sys.stdin.read()
+    # input_line = "sally has 1 oranges" #input("Enter input_line: ")
 
-    # if sys.argv[1] != "-E":
-    #     print("Expected first argument to be '-E'")
-    #     exit(1)
+    if sys.argv[1] != "-E":
+        print("Expected first argument to be '-E'")
+        exit(1)
 
     # # You can use print statements as follows for debugging, they'll be visible when running tests.
     # print("Logs from your program will appear here!")
     # print(f"input line is: {input_line}")
     # Uncomment this block to pass the first stage
     if match_pattern(input_line, pattern):
-        print('success')
+        # print('success')
         exit(0)
     else:
-        print('fail')
+        # print('fail')
         exit(1)
 
 if __name__ == "__main__":
