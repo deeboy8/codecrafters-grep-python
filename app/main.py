@@ -3,59 +3,54 @@ import sys
 # import pyparsing - available if you need it!
 # import lark - available if you need it!
 
+'''
+\d apple should match "1 apple", but not "1 orange".
+\d\d\d apple should match "100 apples", but not "1 apple".
+\d \w\w\ws should match "3 dogs" and "4 cats" but not "1 dog" (because the "s" is not present at the end).
+'''
+
 
 def match_pattern(input_line, pattern):
-    def is_digit(char):
-        return char.isdigit()
-    
-    def is_alnum(char):
-        return char.isalnum()
-
-    def match_character_class(input_line, char_class):
-        for char in input_line:
-            if char_class == 'd' and is_digit(char):
-                return True
-            elif char_class == 'w' and is_alnum(char):
-                return True
-        return False
-
-    def is_negative_character_class(input_line, pattern):
-        # x = any(char in pattern for char in input_line)
-        # print(f'x is: {x}')
-        return not is_character_class(input_line, pattern)
-
-    def is_character_class(input_line, pattern):
-        return any(char in pattern for char in input_line) 
-
-    #code block focuses on digit and alnum character classes   
-    if pattern[0] == '\\':
-        next_char = pattern[1]
-        if next_char == 'd' or next_char == 'w':
-            if match_character_class(input_line, next_char):
-                return True
-    #code block will focus on character group identification
-    elif pattern[0] == '[':
-        closing_bracket = pattern.find(']')
-        if closing_bracket == -1:
-            raise RuntimeError(f"Unmatched '[' in pattern: {pattern}")
-        char_set = pattern[1:-1]
-        if char_set[0] == '^':
-            # if not is_negative_character_class(input_line, char_set[1:]):
-            if is_character_class(input_line, char_set[1:]):
+    i, j = 0, 0
+    while i < len(pattern) and j < len(input_line):
+        # loop over alphanumeric characters in input line if no match with pattern
+        if pattern[i] == input_line[j]:
+            i += 1; j += 1
+        # if find digit character class tags
+        elif pattern[i] == '\\':
+            i += 1 # move indice to d or w char
+            if i < len(pattern):
+                if pattern[i] == 'd' and input_line[j].isdigit() \
+                or pattern[i] == 'w' and input_line[j].isalnum():
+                    i += 1; j += 1
+                else:
+                    return False
+        # if find negative or positive character groups in pattern
+        elif pattern[i] == '[':
+            closing_bracket = pattern.find(']', i)
+            if closing_bracket == -1:
+                # raise RuntimeError(f"Unmatched '[' in pattern: {pattern}")
                 return False 
+            char_set = pattern[i + 1:-1]
+            if char_set.startswith('^'):
+
+                if input_line[j] in char_set[1:]:
+                    return False
+                else:
+                    if input_line[j] not in char_set:
+                        return True
+            i = closing_bracket + 1
+            j += 1                
         else:
-            if is_character_class(input_line, char_set[1:]):
-                return True
-    else:
-        raise RuntimeError(f"Unhandled pattern: {pattern}")
-    
+            j += 1
+        
     return True
       
 def main():
     # pattern = sys.argv[
-    pattern = '[^abc]'
+    pattern = '\\d apples'
     # input_line = sys.stdin.read()
-    input_line = "123" #input("Enter input_line: ")
+    input_line = "3 oranges" #input("Enter input_line: ")
 
     # if sys.argv[1] != "-E":
     #     print("Expected first argument to be '-E'")
