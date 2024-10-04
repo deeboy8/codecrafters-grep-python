@@ -44,13 +44,13 @@ def match_pattern(input_line, pattern):
         else:
             j += 1
         
-    return True
+    return i == len(pattern)
       
 def main():
     # pattern = sys.argv[
     pattern = '\\d apples'
     # input_line = sys.stdin.read()
-    input_line = "3 oranges" #input("Enter input_line: ")
+    input_line = "sally has 1 oranges" #input("Enter input_line: ")
 
     # if sys.argv[1] != "-E":
     #     print("Expected first argument to be '-E'")
@@ -61,11 +61,11 @@ def main():
     # print(f"input line is: {input_line}")
     # Uncomment this block to pass the first stage
     if match_pattern(input_line, pattern):
+        print('success')
         exit(0)
     else:
+        print('fail')
         exit(1)
 
 if __name__ == "__main__":
     main()
-
-
