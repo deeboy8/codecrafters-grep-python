@@ -17,7 +17,7 @@ def match_pattern(input_line, pattern):
         if pattern[i] == input_line[j]:
             i += 1; j += 1
         # if find digit character class tags
-        elif pattern[i] == '\\':
+        elif pattern[i] == '\\' and input_line[j].isdigit():
             i += 1 # move indice to d or w char
             if i < len(pattern):
                 if pattern[i] == 'd' and input_line[j].isdigit() \
