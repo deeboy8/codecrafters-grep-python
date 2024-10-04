@@ -16,15 +16,31 @@ def match_pattern(input_line, pattern):
         # loop over alphanumeric characters in input line if no match with pattern
         if pattern[i] == input_line[j]:
             i += 1; j += 1
+            continue
         # if find digit character class tags
-        elif pattern[i] == '\\' and input_line[j].isdigit():
-            i += 1 # move indice to d or w char
+        # elif pattern[i] == '\\':
+        #     i += 1 # move indice to d or w char
+        #     if i < len(pattern):
+        #         if pattern[i] == 'd' and input_line[j].isdigit() \
+        #         or pattern[i] == 'w' and input_line[j].isalnum():
+        #             i += 1; j += 1
+        #         else:
+        #             return False
+        if pattern[i] == '\\':
+            i += 1
             if i < len(pattern):
-                if pattern[i] == 'd' and input_line[j].isdigit() \
-                or pattern[i] == 'w' and input_line[j].isalnum():
-                    i += 1; j += 1
-                else:
-                    return False
+                if pattern[i] == 'd':
+                    if not input_line[j].isdigit():
+                        j += 1; i -= 1
+                        continue
+                elif pattern[i] == 'w':
+                    if not input_line[j].isalnum():
+                        j += 1
+                        continue
+                i += 1
+                j += 1
+            else:
+                return False
         # if find negative or positive character groups in pattern
         elif pattern[i] == '[':
             closing_bracket = pattern.find(']', i)
@@ -61,7 +77,7 @@ def main():
     # print(f"input line is: {input_line}")
     # Uncomment this block to pass the first stage
     if match_pattern(input_line, pattern):
-        # print('success')
+        print('success')
         exit(0)
     else:
         # print('fail')
