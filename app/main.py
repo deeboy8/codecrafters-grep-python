@@ -3,13 +3,6 @@ import sys
 # import pyparsing - available if you need it!
 # import lark - available if you need it!
 
-'''
-\d apple should match "1 apple", but not "1 orange".
-\d\d\d apple should match "100 apples", but not "1 apple".
-\d \w\w\ws should match "3 dogs" and "4 cats" but not "1 dog" (because the "s" is not present at the end).
-'''
-
-
 def match_pattern(input_line, pattern):
     i, j = 0, 0
     while i < len(pattern) and j < len(input_line):
@@ -49,12 +42,13 @@ def match_pattern(input_line, pattern):
                 return False 
             char_set = pattern[i + 1:-1]
             if char_set.startswith('^'):
-
                 if input_line[j] in char_set[1:]:
                     return False
-                else:
-                    if input_line[j] not in char_set:
-                        return True
+            else:
+                if input_line[j] not in char_set:
+                    # return True
+                    j += 1
+                    continue
             i = closing_bracket + 1
             j += 1                
         else:
