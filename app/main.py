@@ -11,12 +11,14 @@ def match_pattern(input_line, pattern):
     if pattern.startswith('^'):
         pattern = pattern[1:]
         len_of_pattern = len(pattern)
-        new_input_line = input_line[:len_of_pattern]
+        new_input_line = input_line[:len_of_pattern + 1]
+        len_new_input_line = len(new_input_line)
+        print(len_of_pattern, len_new_input_line)
         if len_of_pattern != len(new_input_line):
             return False
         check_for_pattern_match(pattern, new_input_line)
         if not check_for_pattern_match:
-            return False
+            pass
         
     i, j = 0, 0
     while i < len(pattern) and j < len(input_line):
@@ -63,9 +65,9 @@ def match_pattern(input_line, pattern):
       
 def main():
     # pattern = sys.argv[2]
-    pattern = '^sally has 1 orange'
+    pattern = '^log'
     # input_line = sys.stdin.read()
-    input_line = "sally has 1 orange" #input("Enter input_line: ")
+    input_line = "log" #input("Enter input_line: ")
 
     # if sys.argv[1] != "-E":
     #     print("Expected first argument to be '-E'")
@@ -79,7 +81,7 @@ def main():
         print('success')
         exit(0)
     else:
-        # print('fail')
+        print('fail')
         exit(1)
 
 if __name__ == "__main__":
