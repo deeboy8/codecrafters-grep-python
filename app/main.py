@@ -3,22 +3,22 @@ import sys
 # import pyparsing - available if you need it!
 # import lark - available if you need it!
 
-def check_for_pattern_match(pattern, new_input_line):
+def check_for_exact_match(pattern, new_input_line):
     return pattern == new_input_line
         
 
-def match_pattern(input_line, pattern):
+def match_pattern(input_line: str, pattern: str) -> bool:
     if pattern.startswith('^'):
         pattern = pattern[1:]
         len_of_pattern = len(pattern)
         new_input_line = input_line[:len_of_pattern + 1]
-        len_new_input_line = len(new_input_line)
-        print(len_of_pattern, len_new_input_line)
-        if len_of_pattern != len(new_input_line):
+        # len_new_input_line = len(new_input_line)
+        # check_for_exact_match(pattern, new_input_line)
+        x = check_for_exact_match(pattern, new_input_line)
+        if x == False:
             return False
-        check_for_pattern_match(pattern, new_input_line)
-        if not check_for_pattern_match:
-            pass
+        # if not check_for_exact_match:
+        #     return False
         
     i, j = 0, 0
     while i < len(pattern) and j < len(input_line):
@@ -67,7 +67,7 @@ def main():
     # pattern = sys.argv[2]
     pattern = '^log'
     # input_line = sys.stdin.read()
-    input_line = "log" #input("Enter input_line: ")
+    input_line = "slog" #input("Enter input_line: ")
 
     # if sys.argv[1] != "-E":
     #     print("Expected first argument to be '-E'")
