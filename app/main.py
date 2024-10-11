@@ -17,6 +17,8 @@ def match_pattern(input_line: str, pattern: str) -> bool:
         x = check_for_exact_match(pattern, new_input_line)
         if x == False:
             return False
+        else:
+            return True
         # if not check_for_exact_match:
         #     return False
         
@@ -67,7 +69,7 @@ def main():
     # pattern = sys.argv[2]
     pattern = '^log'
     # input_line = sys.stdin.read()
-    input_line = "slog" #input("Enter input_line: ")
+    input_line = "log" #input("Enter input_line: ")
 
     # if sys.argv[1] != "-E":
     #     print("Expected first argument to be '-E'")
