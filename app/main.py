@@ -12,6 +12,8 @@ def match_pattern(input_line, pattern):
         pattern = pattern[1:]
         len_of_pattern = len(pattern)
         new_input_line = input_line[:len_of_pattern]
+        if len_of_pattern != len(new_input_line):
+            return False
         check_for_pattern_match(pattern, new_input_line)
         if not check_for_pattern_match:
             return False
