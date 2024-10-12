@@ -75,14 +75,14 @@ def match_pattern(input_line: str, pattern: str) -> bool:
     return i == len(pattern)
       
 def main():
-    # pattern = sys.argv[2]
-    pattern = 'log$'
-    # input_line = sys.stdin.read()
-    input_line = "slog" #input("Enter input_line: ")
+    pattern = sys.argv[2]
+    # pattern = 'log$'
+    input_line = sys.stdin.read()
+    # input_line = "slog" #input("Enter input_line: ")
 
-    # if sys.argv[1] != "-E":
-    #     print("Expected first argument to be '-E'")
-    #     exit(1)
+    if sys.argv[1] != "-E":
+        print("Expected first argument to be '-E'")
+        exit(1)
 
     # # You can use print statements as follows for debugging, they'll be visible when running tests.
     # print("Logs from your program will appear here!")
