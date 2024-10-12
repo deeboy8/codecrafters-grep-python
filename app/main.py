@@ -3,25 +3,34 @@ import sys
 # import pyparsing - available if you need it!
 # import lark - available if you need it!
 
-def check_for_exact_match(pattern, new_input_line):
+def check_for_achoring_match(pattern, new_input_line):
     return pattern == new_input_line
         
+def end_of_string_anchor(pattern, input_line):
+    return pattern == input_line
 
 def match_pattern(input_line: str, pattern: str) -> bool:
     if pattern.startswith('^'):
         pattern = pattern[1:]
         len_of_pattern = len(pattern)
         new_input_line = input_line[:len_of_pattern + 1]
-        # len_new_input_line = len(new_input_line)
-        # check_for_exact_match(pattern, new_input_line)
-        x = check_for_exact_match(pattern, new_input_line)
+        x = check_for_achoring_match(pattern, new_input_line)
         if x == False:
             return False
         else:
             return True
-        # if not check_for_exact_match:
-        #     return False
-        
+    
+    if pattern.endswith('$'):
+        pattern, input_line = pattern[::-1], input_line[::-1] # reversed each string
+        pattern = pattern[1:] # removed $ from pattern string
+        pattern_len = len(pattern) 
+        input_line = input_line[:pattern_len]
+        value = end_of_string_anchor(pattern, input_line)
+        if value:
+            return True
+        else:
+            return False
+
     i, j = 0, 0
     while i < len(pattern) and j < len(input_line):
         # loop over alphanumeric characters in input line if no match with pattern
@@ -66,14 +75,14 @@ def match_pattern(input_line: str, pattern: str) -> bool:
     return i == len(pattern)
       
 def main():
-    pattern = sys.argv[2]
-    # pattern = '^log'
-    input_line = sys.stdin.read()
-    # input_line = "slog" #input("Enter input_line: ")
+    # pattern = sys.argv[2]
+    pattern = 'log$'
+    # input_line = sys.stdin.read()
+    input_line = "slog" #input("Enter input_line: ")
 
-    if sys.argv[1] != "-E":
-        print("Expected first argument to be '-E'")
-        exit(1)
+    # if sys.argv[1] != "-E":
+    #     print("Expected first argument to be '-E'")
+    #     exit(1)
 
     # # You can use print statements as follows for debugging, they'll be visible when running tests.
     # print("Logs from your program will appear here!")
