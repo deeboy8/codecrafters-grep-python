@@ -86,10 +86,10 @@ def match_pattern(input_line: str, pattern: str) -> bool:
     return i == len(pattern)
       
 def main():
-    # pattern = sys.argv[2]
-    pattern = '[^abc]'
-    # input_line = sys.stdin.read()
-    input_line = "def" #input("Enter input_line: ")
+    pattern = sys.argv[2]
+    # pattern = '[^abc]'
+    input_line = sys.stdin.read()
+    # input_line = "def" #input("Enter input_line: ")
 
     # if sys.argv[1] != "-E":
     #     print("Expected first argument to be '-E'")
