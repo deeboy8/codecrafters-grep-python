@@ -41,7 +41,7 @@ def match_pattern(input_line: str, pattern: str) -> bool:
             i += 1; j += 1
             continue
         # match for '+' quantifier
-        if pattern[i] == '+':
+        if pattern[i] == '+' or pattern[i] == '?':
             if i == 0 or j == 0:
                 return False
             prev_char = pattern[i - 1]
