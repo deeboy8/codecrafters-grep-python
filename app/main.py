@@ -81,6 +81,8 @@ def match_pattern(input_line: str, pattern: str) -> bool:
                 if pattern[i + 1] == input_line[j]:
                     i += 2; j += 1
                     continue
+                else:
+                    return False
             if pattern[i + 1] == '?': #where i + 1 is ? 
                 if pattern[i + 2] == input_line[j]:
                     i += 3; j += 1
