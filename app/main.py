@@ -35,19 +35,56 @@ def match_pattern(input_line: str, pattern: str) -> bool:
         else:
             return False
 
+    def zero_or_one_match(pattern, input_line, i, j):
+        # check and make sure pattern nand input_line are valid
+        if len(pattern) == 0 or len(input_line) == 0:
+            #TODO: excepction/ error handling
+            return False
+        if pattern[i] == pattern[j] and pattern[j]:
+            j+= 1; i+= 2
+            return True
+        elif pattern[i + 1] == pattern[j] or pattern[i + 2] == pattern[j]:
+             return True
+        else:
+            return False
+ 
+                                               #i
+                                #pattern = "colou?r"
+                         #input_line = "The color of the sky is blue."
+                #                               j
+                #                            i
+                #         #pattern = "behavio?ur"
+                #  #input_line = "Her behaviour was exemplary during the meeting."
+                #                            j
+    #                             i            
+    #             pattern = "flavo?r"
+    #      input_line = "The flavour of the ice cream was intense."
+    #                             j
+
     i, j = 0, 0
     while i < len(pattern) and j < len(input_line):
         if pattern[i] == input_line[j]: ## what if you had /d in input_line
-            i += 1; j += 1
+            i += 1; j += 1            
             continue
-        # match for '+' quantifier
-        if pattern[i] == '+' or pattern[i] == '?':
+        # match for '+' quantifier (one or more character match)
+        if pattern[i] == '+':
             if i == 0 or j == 0:
                 return False
             prev_char = pattern[i - 1]
             while j < len(input_line) and input_line[j] == prev_char:
                 j += 1
             i += 1
+        # match for '?' quantifier (zero or one characters)
+        elif pattern[i + 1] == '?' or (pattern[i] == '?' and pattern[i] != input_line[j]):
+            # zero_or_one_match(pattern, input_line, i)
+            if pattern[i] == '?':
+                if pattern[i + 1] == input_line[j]:
+                    i += 2; j += 1
+                    continue
+            if pattern[i + 1] == '?': #where i + 1 is ? 
+                if pattern[i + 2] == input_line[j]:
+                    i += 3; j += 1
+                    continue
         elif pattern[i] == '\\':
             i += 1 # move idx to letter d or w character
             if i < len(pattern):
